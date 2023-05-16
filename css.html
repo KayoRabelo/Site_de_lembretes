@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tarefas com Bootstrap e JavaScript</title>
+
+  <!-- Incluindo os arquivos CSS do Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">Minhas Tarefas</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <div class="container mt-4">
+      <div class="input-group mb-3">
+        <input id="taskInput" type="text" class="form-control" placeholder="Adicionar nova tarefa">
+        <button id="addTaskBtn" class="btn btn-primary">Adicionar</button>
+      </div>
+
+      <ul id="taskList" class="list-group"></ul>
+    </div>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="bg-dark text-white text-center py-3">
+      <p>&copy; 2023 Minhas Tarefas. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Incluindo o arquivo JavaScript do Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  
+  <script>
+   var taskInput = document.getElementById("taskInput");
+var addTaskBtn = document.getElementById("addTaskBtn");
+var taskList = document.getElementById("taskList");
+
+// Função para adicionar uma nova tarefa à lista
+function addTask() {
+  var taskText = taskInput.value.trim();
+
+  if (taskText !== "") {
+    var taskItem = document.createElement("li");
+    taskItem.classList.add("list-group-item");
+    taskItem.innerText = taskText;
+
+    var removeBtn = document.createElement("button");
+    removeBtn.classList.add("btn", "btn-danger", "btn-sm", "float-end");
+    removeBtn.innerText = "Remover";
+
+    taskItem.appendChild(removeBtn);
+    taskList.appendChild(taskItem);
+
+    taskInput.value = "";
+
+    // Adicionar ouvinte de evento para o botão de remoção
+    removeBtn.addEventListener("click", function () {
+      taskList.removeChild(taskItem);
+    });
+  }
+}
+
+// Adicionar ouvinte de evento para o botão de adicionar tarefa
+addTaskBtn.addEventListener("click", addTask);
+
+// Adicionar ouvinte de evento para a tecla Enter no campo de entrada
+taskInput.addEventListener("keydown", function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault(); // Evita o comportamento padrão de inserir uma quebra de linha
+
+    addTask(); // Chama a função addTask() para adicionar a tarefa à lista
+  }
+});
+  </script>
+
+</body>
+
+</html>
